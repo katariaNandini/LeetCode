@@ -14,22 +14,19 @@ public:
                ListNode* temp1 = head;
 
             if(head == NULL||head->next == NULL) return head;
-int count=0;
-            while(temp1!=NULL){
+int count=1;
+            while(temp1->next!=NULL){
                 temp1=temp1->next;
                 count++;
-            
             }
+           // temp1=temp1->next;
+            temp1->next=head;
+
             k=k%count;
- for(int i=0;i<k;i++) {
-        ListNode* temp = head;
-                   while(temp->next->next!=NULL)
-            temp=temp->next;
-            ListNode *str=temp->next;
-            temp->next=NULL;
-            str->next=head;
-            head=str;
-       }
+            k=count-k;
+for(int i=0;i<k;i++) temp1=temp1->next;
+ head=temp1->next;
+       temp1->next=NULL;
         return head;
     }
 };
