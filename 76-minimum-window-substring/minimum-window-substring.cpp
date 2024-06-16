@@ -1,42 +1,39 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-  if (t.length() == 0) return "";
-  map < char, int > mpt;
-  map < char, int > mps;
-  for (int i = 0; i < t.length(); i++) {
-    mpt[t[i]]++;
-  }
-  int cur = 0, total = mpt.size();
-  int i = 0, j = 0;
-  int res = INT_MAX;
-  pair < int, int > indices;
-  while (j < s.length()) {
-    if (mpt.find(s[j]) != mpt.end()) mps[s[j]]++;
-    if (mpt.find(s[j]) != mpt.end() && mps[s[j]] == mpt[s[j]]) cur++;
-
-    while (cur == total) {
-      //update result 
-      if (j - i + 1 < res) {
-        res = j - i + 1;
-
-        indices = make_pair(i, j);
+      map <char, int> m;
+      for(int i =0;i<t.size();i++)m[t[i]]++;
+      int length = s.size();
+      int left = 0, right = 0 , ansLeft = 0, ansRight = 0;
+      int counter = t.size();
+      bool flag = false;
+      string ans = "";
+      while(right<s.size()){
+         char c = s[right];
+         if(m.find(c)!=m.end()){
+            if(m[c]>0)counter--;
+            m[c]--;
+         }
+         while(counter == 0 && left<=right){
+            if(right-left+1 <=length){
+               length = right-left+1;
+               flag = true;
+               ansLeft = left;
+               ansRight = right;
+            }
+            if(left == right)break;
+            c = s[left];
+            if(m.find(c)!=m.end()){
+               m[c]++;
+               if(m[c]>0)counter++;
+            }
+            left++;
+         }
+         right++;
       }
-      //shrink 
-      if (mps.find(s[i]) != mps.end()) {
-        mps[s[i]]--;
-        if (mps.find(s[i]) != mps.end() && mps[s[i]] < mpt[s[i]]) cur--;
-      }
-      i++;
-    }
-    j++;
-  }
-  if (res == INT_MAX) return "";
-  string str = "";
-  for (int i = indices.first; i <= indices.second; i++) {
-    str += s[i];
-  }
-  return str;
-}
-
+      if(!flag)return ans;
+      else
+      for(int i =ansLeft;i<=ansRight;i++)ans+=s[i];
+      return ans;
+   }
 };
