@@ -11,27 +11,24 @@
  */
 class Solution {
 public:
- void nodes(TreeNode* root,int ans,vector<int>&arr){
-      if (!root) {
-            return ;
-        }
-       // arr.push_back(root->val);
-         if (!root->left && !root->right) {
-            arr.push_back(ans);
-        } else {
-            nodes(root->left,ans+1,arr);
-            nodes(root->right, ans+1,arr);
-        }
-  }
-    int maxDepth(TreeNode* root) {
-
-        vector<int>arr;
-        nodes(root,1,arr);
-        if(arr.size()==0){
+int maxDepth(TreeNode* root){
+        // If the root is NULL
+        // (empty tree), depth is 0
+        if(root == NULL){
             return 0;
         }
-        int ans=*max_element(arr.begin(), arr.end());
-
-        return ans;
+        
+        // Recursive call to find the
+        // maximum depth of the left subtree
+        int lh = maxDepth(root->left);
+        
+        // Recursive call to find the
+        // maximum depth of the right subtree
+        int rh = maxDepth(root->right);
+        
+        // Return the maximum depth of the
+        // tree, adding 1 for the current node
+        return 1 + max(lh, rh);
     }
+   
 };
