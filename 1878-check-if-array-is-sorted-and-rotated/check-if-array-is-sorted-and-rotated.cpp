@@ -1,20 +1,16 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
-        int count = 0;
-        int n = nums.size();
-        
-        for (int i = 1; i < n; i++) {
-            if (nums[i-1] > nums[i]) {
+        int size=nums.size();
+        int f=size-1;
+        int count=0;
+       for(int i=1;i<size;i++){
+        if(nums[i-1]>nums[i])
+count++;         
+       }
+ if(nums[f]>nums[0]){
                 count++;
-            }
-        }
-        
-        // Check the last element with the first element
-        if (nums[n-1] > nums[0]) {
-            count++;
-        }
-        
-        return count <= 1;
+       } 
+       return count<=1;
     }
 };
