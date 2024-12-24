@@ -4,7 +4,7 @@ stack<long long> st;
 long long mini;
     MinStack() {
         while(!st.empty())st.pop();
-        mini=LLONG_MAX;
+        mini=INT_MAX;
     }
     
     void push(int val) {
@@ -34,8 +34,10 @@ long long mini;
     int top() {
         if(st.empty())return -1;
         long long el=st.top();
-                return (el < mini) ? mini : el;
-
+        if(el<mini){
+            return mini;
+        }
+        return el;
     }
     
     int getMin() {
