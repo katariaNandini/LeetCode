@@ -1,16 +1,21 @@
 class Solution {
 public:
     vector<int> minOperations(string boxes) {
-        vector<int> ans;
+        int cumval=0;
+        int cumsum=0;
         int n=boxes.size();
+        vector<int> ans(n,0);
         for(int i=0;i<n;i++){
-            int index=0;
-            for(int j=0;j<n;j++){
-                if(j==i)continue;
-                else
-                index+=  (boxes[j] - '0')*abs(j-i);
-            }
-            ans.push_back(index);
+            ans[i]=cumsum;
+            cumval+=boxes[i]=='0'?0:1;
+            cumsum+=cumval;
+        }
+        cumsum=0;
+        cumval=0;
+        for(int i=n-1;i>=0;i--){
+ans[i]+=cumsum;
+            cumval+=boxes[i]=='0'?0:1;
+            cumsum+=cumval;
         }
         return ans;
     }
