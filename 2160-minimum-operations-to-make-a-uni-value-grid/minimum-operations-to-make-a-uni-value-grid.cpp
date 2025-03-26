@@ -7,10 +7,11 @@ public:
                 nums.push_back(num);
             }
         }
-        sort(nums.begin(),nums.end());
         int mindiff=INT_MAX;
         // int value=0;
         int n=nums.size();
+                nth_element(nums.begin(),nums.begin()+n/2,nums.end());
+
         // for(int i=0;i<n;i++){
         //     int maxdiff=mindiff;
         //     mindiff=0;
