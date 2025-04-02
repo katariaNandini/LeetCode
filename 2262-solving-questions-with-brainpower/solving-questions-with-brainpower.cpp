@@ -1,17 +1,12 @@
 class Solution {
 public:
-    long long mostPoints(vector<vector<int>>& questions) {
-        int n = questions.size();
-        vector<long long> dp(n + 1, 0);  // DP array initialized to 0
-
-        for (int i = n - 1; i >= 0; --i) {
-            int nextIndex = i + 1 + questions[i][1]; // Jump index
-            long long take = questions[i][0] + (nextIndex < n ? dp[nextIndex] : 0);
-            long long skip = dp[i + 1];  // Skip the current question
-
-            dp[i] = max(take, skip);
+    long long mostPoints(vector<vector<int>>& q) {
+        int n=q.size();
+        if(n==1)return q[0][0];
+        vector<long long> ans(200001,0);
+        for(int i=n-1;i>=0;i--){
+            ans[i]=max(q[i][0]+ans[i+q[i][1]+1],ans[i+1]);
         }
-
-        return dp[0];
+        return ans[0];
     }
 };
