@@ -12,15 +12,16 @@ class Solution {
         vector<int> dp(n+1,0);
         dp[0]=0;
         for(int i=1;i<n;i++){
-            vector<int> findmin;
+         int ls=INT_MAX;
+
             for(int j=1;j<=k;j++){
-                int ls=INT_MAX;
-                if(i-j>=0) ls=dp[i-j]+abs(arr[i]-arr[i-j]);
-                findmin.push_back(ls);
+              
+        if(i-j>=0){ int mini=dp[i-j]+abs(arr[i]-arr[i-j]);
+        ls=min(ls,mini);}
                 
             }
-            dp[i]=*min_element(findmin.begin(),findmin.end());
-            
+            dp[i]=ls;
+
             // int ls=dp[i-1]+abs(height[i]-height[i-1]);
             // int rs=INT_MAX;
             // if(i>1)
