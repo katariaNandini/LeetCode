@@ -12,7 +12,16 @@ int robber(vector<int> & nums,int ind,vector<int>&dp){
 }
     int rob(vector<int>& nums) {
         int n=nums.size();
-        vector<int> dp(n,-1);
-        return robber(nums,n-1,dp);
+        vector<int> dp(n,0);
+        dp[0]=nums[0];
+        if(n>=2)
+        dp[1]=max(nums[0],nums[1]);
+        for(int i=2;i<n;i++){
+            int taken=dp[i-2]+nums[i];
+            int nottaken=dp[i-1];
+            int cur=max(taken,nottaken);
+            dp[i]=cur;
+        }
+        return dp[n-1];
     }
 };
