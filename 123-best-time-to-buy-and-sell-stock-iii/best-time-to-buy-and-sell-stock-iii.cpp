@@ -12,8 +12,23 @@ if(dp[ind][buy][c]!=-1) return dp[ind][buy][c];
 }
     int maxProfit(vector<int>& prices) {
         int n=prices.size();
-        vector<vector<vector<int>>>dp(n,vector<vector<int>>(2,vector<int>(3,-1)));
-        return f(0,1,prices,n,0,dp);
-        
+        vector<vector<int>>prev(2,vector<int>(3,0));
+        vector<vector<int>>cur(2,vector<int>(3,0));
+
+//    
+for(int ind=n-1;ind>=0;ind--){
+            for(int buy=1;buy>=0;buy--){
+         for (int k = 0; k < 2; k++) {
+            
+             if(buy)
+   prev[buy][k]=max((-prices[ind]+ cur[0][k] ),(0+ cur[1][k] ));
+    
+    else  prev[buy][k]=max((prices[ind]+ cur[1][k+1] ),(0+cur[0][k] ));
+
+      
+    }}
+    cur=prev;
     }
+    
+      return cur[1][0];}
 };
