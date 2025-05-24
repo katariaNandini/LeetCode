@@ -1,39 +1,33 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-      map <char, int> m;
-      for(int i =0;i<t.size();i++)m[t[i]]++;
-      int length = s.size();
-      int left = 0, right = 0 , ansLeft = 0, ansRight = 0;
-      int counter = t.size();
-      bool flag = false;
-      string ans = "";
-      while(right<s.size()){
-         char c = s[right];
-         if(m.find(c)!=m.end()){
-            if(m[c]>0)counter--;
-            m[c]--;
-         }
-         while(counter == 0 && left<=right){
-            if(right-left+1 <=length){
-               length = right-left+1;
-               flag = true;
-               ansLeft = left;
-               ansRight = right;
-            }
-            if(left == right)break;
-            c = s[left];
-            if(m.find(c)!=m.end()){
-               m[c]++;
-               if(m[c]>0)counter++;
-            }
-            left++;
-         }
-         right++;
-      }
-      if(!flag)return ans;
-      else
-      for(int i =ansLeft;i<=ansRight;i++)ans+=s[i];
-      return ans;
-   }
+vector<int> mp(256, 0);
+        int n=s.size();
+        int m=t.size();
+        int i=0,j=0,count=0,minlen=INT_MAX,iindex=-1;
+        for(int i=0;i<m;i++){
+            mp[t[i]]++;
+        }
+        while(j<n){
+            	if(mp[s[j]]>0) {
+                count++;}mp[s[j]]--;
+               
+                    while(count==m){
+                        if(minlen>j-i+1){
+                            minlen=min(j-i+1,minlen);
+                            iindex=i;
+                        }
+                        mp[s[i]]++;
+                        if(mp[s[i]]>=1) {count--;}
+                        i++;
+                        
+
+                        
+                    }
+                   
+                
+                 j++;
+        }
+       return iindex == -1 ? "" : s.substr(iindex, minlen);
+    }
 };
