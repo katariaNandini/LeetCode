@@ -1,14 +1,15 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        vector<int> count(26,0);
-        for(char &ch:s)
-        count[ch-'a']++;
-        for(char &ch:t)
-        count[ch-'a']--;
-        bool allzero=all_of(begin(count),end(count),[](int element){
-return element==0;
-        });
-        return allzero;
+        vector<int> ch1(26,0),ch2(26,0);
+        int n=s.size();
+        int m=t.size();
+        if(n!=m) return false;
+        for(int i=0;i<n;i++){
+            ch1[s[i]-'a']++;
+            ch2[t[i]-'a']++;
+        }
+        if(ch1==ch2) return true;
+        else return false;
     }
 };
