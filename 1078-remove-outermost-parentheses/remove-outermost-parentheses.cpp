@@ -4,18 +4,19 @@ public:
         stack<char> st;
         string res="";
         int n=s.size();
+        int c=0;
         for(int i=0;i<n;i++){
-            if(!st.empty()&&s[i]=='('){st.push('(');
+            if(c!=0&&s[i]=='('){c++;
             res.push_back('(');
 
             }
-            else  if(st.empty()&&s[i]=='('){st.push('(');
+            else  if(c==0&&s[i]=='('){c++;
             // res.push_back('(');
 
             } 
-            else   if(!st.empty()&&s[i]==')'){
-st.pop();
-if(!st.empty())
+            else   if(s[i]==')'){
+c--;
+if(c!=0)
 res.push_back(')');
 
             }
