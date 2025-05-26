@@ -9,10 +9,10 @@ public:
             int m=st.size();
                 maxi=max(maxi,m);}
             else  if(s[i]==')')st.pop();
-            else if(isdigit(s[i])){
-                int m=st.size();
-                maxi=max(maxi,m);
-            }
+            // else if(isdigit(s[i])){
+            //     int m=st.size();
+            //     maxi=max(maxi,m);
+            // }
             
         }
         return maxi;
