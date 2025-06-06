@@ -1,31 +1,33 @@
 class Solution {
 public:
+string sorted(string temp){
+    int n=temp.size();
+    vector<int> arr(26,0);
+    for(int i=0;i<n;i++){
+        arr[temp[i]-'a']++;
+    }
+    string news="";
+    for(int i=0;i<26;i++){
+        if(arr[i]!=0){
+            news+=string(arr[i],i+'a');
+        }
+    }
+return news;
+}
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         int n=strs.size();
-vector<pair<int,string>>copy;
-// we are pusing  a string with its index in copy
-// next step i am thinking to sort each string 
-// then sort all the stirngs 
-// then match 
-// and put in ans but in ans i will put string based to its inidex and then taht string from strs
+        unordered_map<string,vector<string>> mp;
         for(int i=0;i<n;i++){
-            copy.push_back({i,strs[i]});
+            string temp=strs[i];
+            string sort=sorted(temp);
+            mp[sort].push_back(temp);
+
         }
-        for(int i=0;i<n;i++){
-            sort(copy[i].second.begin(),copy[i].second.end());
+        vector<vector<string>>  ans;
+        for(auto it:mp){
+        ans.push_back(it.second);
+
         }
-        sort(copy.begin(),copy.end(),[](const pair<int,string>&a,const pair<int,string>&b){
-            return a.second<b.second;
-        });
-        vector<string> temp;
-        vector<vector<string>> ans;
-        for(int i=0;i<n;i++){
-                    temp.push_back(strs[copy[i].first]);
-            // If it's the last element or the next one is different, push temp to ans
-            if (i == n - 1 || copy[i].second != copy[i + 1].second) {
-                ans.push_back(temp);
-                temp.clear();
-            }}
-    return ans;
+        return ans;
     }
 };
