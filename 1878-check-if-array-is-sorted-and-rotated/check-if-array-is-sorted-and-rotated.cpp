@@ -2,26 +2,11 @@ class Solution {
 public:
     bool check(vector<int>& nums) {
         int n=nums.size();
-        int index=-1;
-        for(int i=0;i<n;i++){
-            if(i!=n-1&&nums[i]>nums[i+1]){
-index=i+1;
-            }
+        int cnt=0;
+        for(int i=1;i<n;i++){
+            if(nums[i-1]>nums[i])cnt++;
         }
-        if(index==-1){
-            for(int i=1;i<n;i++){
-               if(nums[i-1]>nums[i])return false ;
-            }
-            return true;
-        }
-        else{
-        for(int i=index+1;i<n;i++){
-            if(nums[i-1]>nums[i])return false;
-        }
-        if(nums[0]<nums[n-1]) return false;
-        for(int i=1;i<index;i++){
-             if(nums[i-1]>nums[i])return false;
-        }
-        return true;}
-            }
+        if(nums[n-1]>nums[0])cnt++;
+        return cnt<=1;
+    }
 };
