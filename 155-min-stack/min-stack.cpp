@@ -3,41 +3,39 @@ public:
 stack<long long> st;
 long long mini;
     MinStack() {
-        while(!st.empty())st.pop();
         mini=INT_MAX;
     }
     
     void push(int val) {
         if(st.empty()){
+            mini=val;
             st.push(val);
-            mini=val;
         }
-        else if(mini>val){
-            st.push(2LL*val-mini);
-            mini=val;
+        else {
+            if(mini>val){
+                // long long num=2*val*1LL-mini;
+                st.push(2LL * val - mini);
+                mini=val;
+            }
+            else st.push(val);
         }
-        else st.push(val);
-        
     }
     
     void pop() {
-       if(st.empty()) return ;
-       long long el=st.top();
-       st.pop();
-        if(el<mini){
-            mini=2*mini-el;
-            
-        }
-
+        if(st.empty()) return ;
+        long long el=st.top();
+        st.pop();
+        if(el<mini){mini=2*mini-el;
+        
+            //  st.pop();
+             }
     }
     
     int top() {
-        if(st.empty())return -1;
-        long long el=st.top();
-        if(el<mini){
-            return mini;
-        }
-        return el;
+        if(mini>st.top()) 
+        return mini;
+        else return st.top();
+        
     }
     
     int getMin() {
