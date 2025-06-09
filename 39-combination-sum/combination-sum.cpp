@@ -1,8 +1,8 @@
 class Solution {
 public:
 void f(vector<int>& c,int t,int i,int n,vector<int> &ds,  vector<vector<int>> &ans){
-    // if(i==n) {
-        if(t==0){ ans.push_back(ds);
+    if(i==n) {
+        if(t==0) ans.push_back(ds);
         return ;
     }
     if (t < 0 || i == n) return;
