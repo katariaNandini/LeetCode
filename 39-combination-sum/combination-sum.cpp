@@ -5,10 +5,10 @@ void f(vector<int>& c,int t,int i,int n,vector<int> &ds,  vector<vector<int>> &a
         if(t==0) ans.push_back(ds);
         return ;
     }
-    if (t < 0 || i == n) return;
+    if (c[i]<=t ) {
     ds.push_back(c[i]);
     f(c,t-c[i],i,n,ds,ans);
-    ds.pop_back();
+    ds.pop_back();}
     f(c,t,i+1,n,ds,ans);
 }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
