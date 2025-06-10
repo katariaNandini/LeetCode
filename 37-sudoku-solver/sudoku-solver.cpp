@@ -1,3 +1,18 @@
+/*
+Intuition:
+Use backtracking to fill empty cells ('.') with valid digits ('1'-'9') 
+such that each digit appears only once in every row, column, and 3x3 sub-box.
+
+Algorithm:
+1. Traverse each cell of the board.
+2. If an empty cell is found:
+   - Try placing digits '1' to '9'.
+   - Use the `check()` function to validate the placement.
+   - If valid, recursively solve for the next cell.
+   - If recursion fails, backtrack by resetting the cell to '.'.
+3. If all cells are filled correctly, return true to indicate the board is solved.
+*/
+
 class Solution {
 public:
 bool check(vector<vector<char>>&board,int c,int row,int col){
