@@ -15,42 +15,55 @@ Algorithm:
 class Solution {
   public:
   void solve(int i,int j,vector<vector<int>>&maze,
-  int n,string s,vector<vector<int>>&vis,vector<string>&ans){
+  int n,string s,vector<vector<int>>&vis,vector<string>&ans
+  ,int di[],int dj[]){
       if(i==n-1&&j==n-1)ans.push_back(s);
+      string dir="DLRU";
+      for(int k=0;k<4;k++){
+          int nexti=i+di[k];
+          int nextj=j+dj[k];
+          if(nexti<n&&nexti>=0&&nextj>=0&&nextj<n  && !vis[nexti][nextj] && maze[nexti][nextj] == 1){
+              vis[i][j]=1;
+              solve(nexti,nextj,maze,n,s+dir[k],vis,ans,di,dj);
+              vis[i][j]=0;
+          }
+      }
     //   down
-      if(i+1<n&&vis[i+1][j]!=1&&maze[i+1][j]==1){
-          vis[i][j]=1;
-          solve(i+1,j,maze,n,s+'D',vis,ans);
-          vis[i][j]=0;
-      }
+    //   if(i+1<n&&vis[i+1][j]!=1&&maze[i+1][j]==1){
+    //       vis[i][j]=1;
+    //       solve(i+1,j,maze,n,s+'D',vis,ans);
+    //       vis[i][j]=0;
+    //   }
       
       
-      if(j-1>=0&&vis[i][j-1]!=1&&maze[i][j-1]==1){
-           vis[i][j]=1;
-          solve(i,j-1,maze,n,s+'L',vis,ans);
-          vis[i][j]=0; 
-      }
+    //   if(j-1>=0&&vis[i][j-1]!=1&&maze[i][j-1]==1){
+    //       vis[i][j]=1;
+    //       solve(i,j-1,maze,n,s+'L',vis,ans);
+    //       vis[i][j]=0; 
+    //   }
        
        
        
-       if(j+1<n&&vis[i][j+1]!=1&&maze[i][j+1]==1){
-          vis[i][j]=1;
-          solve(i,j+1,maze,n,s+'R',vis,ans);
-          vis[i][j]=0;
-      } 
+    //   if(j+1<n&&vis[i][j+1]!=1&&maze[i][j+1]==1){
+    //       vis[i][j]=1;
+    //       solve(i,j+1,maze,n,s+'R',vis,ans);
+    //       vis[i][j]=0;
+    //   } 
       
       
-      if(i-1>=0&&vis[i-1][j]!=1&&maze[i-1][j]==1){
-          vis[i][j]=1;
-          solve(i-1,j,maze,n,s+'U',vis,ans);
-          vis[i][j]=0;
-      }
+    //   if(i-1>=0&&vis[i-1][j]!=1&&maze[i-1][j]==1){
+    //       vis[i][j]=1;
+    //       solve(i-1,j,maze,n,s+'U',vis,ans);
+    //       vis[i][j]=0;
+    //   }
   }
     vector<string> ratInMaze(vector<vector<int>>& maze) {
         int n=maze.size();
         vector<vector<int>> vis(n,vector<int>(n,0));
         vector<string> ans;
-        if(maze[0][0]==1)solve(0,0,maze,n,"",vis,ans);
+      int  di[4]={1,0,0,-1};
+    int    dj[4]={0,-1,1,0};
+        if(maze[0][0]==1)solve(0,0,maze,n,"",vis,ans,di,dj);
         return ans;
         // code here
     }
