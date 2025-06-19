@@ -10,7 +10,17 @@ bool f(vector<int>&nums,int ind,vector<int>&dp){
 }
     bool canJump(vector<int>& nums) {
         int n=nums.size();
-      vector<int> dp(n,-1);
-        return f(nums,0,dp);
+      vector<bool> dp(n,false);
+      dp[n-1]=true;
+      for(int i=n-2;i>=0;i--){
+        int till=min(i+nums[i],n-1);
+        for(int j=i+1;j<=till;j++){
+        if(dp[j]) {dp[i]=true;
+        break;}        
+    }
+    // dp[i]=false;
+      }
+
+        return dp[0];
     }
 };
