@@ -11,45 +11,40 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
-            return true; // It's a palindrome by definition
-        }
+       ListNode* slow=head;
+       ListNode* fast=head;
+       ListNode* temp=head;
+       ListNode* prev=NULL;
+       ListNode* front=NULL;
+       if(head==NULL||head->next==NULL) return true;
+       if(head->next->next==NULL) return head->val==head->next->val;
+       while(fast!=NULL&&fast->next!=NULL){
+        slow=slow->next;
 
-        // Step 1: Find the middle of the linked list
-        ListNode* slow = head;
-        ListNode* fast = head;
-        while (fast != nullptr && fast->next != nullptr) {
-            slow = slow->next;
-            fast = fast->next->next;
+        fast=fast->next->next;
+        // count++;
+       }
+       while(temp!=slow){
+        front=temp->next;
+        temp->next=prev;
+        prev=temp;
+        temp=front;
+       }
+if (fast != NULL) {
+    // Odd-length list
+    slow = slow->next; // Skip the middle node
+}    
+//    fast=slow;
+       while(slow!=NULL&&prev!=NULL){
+        if(slow->val==prev->val){
+            slow=slow->next;
+            prev=prev->next;
         }
+        else return false;
+       }
+       return true;
 
-        // Step 2: Reverse the second half of the list
-        ListNode* reversedHead = reverse(slow);
-        
-        // Step 3: Compare the first half and the reversed second half
-        ListNode* firstHalf = head;
-        ListNode* secondHalf = reversedHead;
-        while (secondHalf != nullptr) {
-            if (firstHalf->val != secondHalf->val) {
-                return false;
-            }
-            firstHalf = firstHalf->next;
-            secondHalf = secondHalf->next;
-        }
 
-        return true;
-    }
 
-private:
-    ListNode* reverse(ListNode* head) {
-        ListNode* prev = nullptr;
-        ListNode* current = head;
-        while (current != nullptr) {
-            ListNode* next = current->next;
-            current->next = prev;
-            prev = current;
-            current = next;
-        }
-        return prev;
     }
 };
