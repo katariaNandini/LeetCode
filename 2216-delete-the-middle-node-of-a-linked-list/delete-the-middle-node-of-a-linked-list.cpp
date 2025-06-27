@@ -15,14 +15,18 @@ public:
         ListNode* fast=head;
         ListNode* prev;
         if(head==NULL||head->next==NULL)return NULL;
+        int first=0;
         while(fast!=NULL&&fast->next!=NULL){
-            prev=slow;
-            slow=slow->next;
+          if(first==0){ fast=fast->next->next;
+          first=1;}
+          else {
             fast=fast->next->next;
+            slow=slow->next;
+          }
 
         }
-        prev->next=prev->next->next;
-        delete(slow);
+        slow->next=slow->next->next;
+        // delete(slow);
         return head;
     }
 
