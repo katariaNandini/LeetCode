@@ -20,10 +20,10 @@ public:
                 temp->next=head2;
                 head2=head2->next;
             }
-            else if(head1->val<head2->val){
-                 temp->next=head1;
-                head1=head1->next;
-            }
+            // else if(head1->val<head2->val){
+            //      temp->next=head1;
+            //     head1=head1->next;
+            // }
             else{
                 temp->next=head1;
                 head1=head1->next;
