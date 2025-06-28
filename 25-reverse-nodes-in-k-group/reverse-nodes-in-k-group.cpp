@@ -10,27 +10,54 @@
  */
 class Solution {
 public:
-    ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode* dummy=new ListNode(0);
-        dummy->next=head;
-        ListNode* cur=dummy,*nex=dummy,*pre=dummy;
-        int count=0;
-        while(cur->next!=NULL){
-        count++;
-        cur=cur->next;
-       }
-       while(count>=k){
-        cur=pre->next;
-        nex=cur->next;
-        for(int i=1;i<k;i++){
-            cur->next=nex->next;
-            nex->next=pre->next;
-            pre->next=nex;
-            nex=cur->next;
+ ListNode* reverse(ListNode* head) {
+        ListNode* prev=NULL;
+        ListNode* nexti=new ListNode(-1);
+if(head==NULL||head->next==NULL) return head;
+        ListNode* temp=head;
+
+        while(temp!=NULL
+        // &&temp->next!=NULL
+        ){
+            nexti=temp->next;
+            temp->next=prev;
+            prev=temp;
+           temp=nexti;
+        //    temp=temp->next;
+            // temp=nexti;
+            // temp=temp->next;
+            // nexti=nexti->next;
+
         }
-        pre=cur;
-        count-=k;
-       }
-       return dummy->next;
+        return prev;
+    }
+    ListNode* findnode(ListNode* head, int k){
+        k-=1;
+        while(k>0&&head!=NULL){
+            k--;
+            head=head->next;
+        }
+        return head;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+     ListNode* temp=head;
+     ListNode *prevnode=NULL;
+     while(temp!=NULL){
+        ListNode* knode=findnode(temp,k);
+        if(knode==NULL){
+            if(prevnode!=NULL)prevnode->next=temp;
+            break;
+        }
+      ListNode*  nextnode=knode->next;
+        knode->next=NULL;
+        reverse(temp);
+        if(temp==head)head=knode;
+        else{
+            prevnode->next=knode;
+        }
+        prevnode=temp;
+        temp=nextnode;
+     }
+        return head;
     }
 };
