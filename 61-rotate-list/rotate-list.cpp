@@ -18,9 +18,12 @@ public:
             len++;
             temp=temp->next;
         }
+        if(k%len==0) return head;
         temp->next=head;
         k=k%len;
+        // if(k==0) return head;
         len=len-k;
+
         while(len>0){
             temp=temp->next;
             len--;
