@@ -3,14 +3,17 @@ public:
     int subarraySum(vector<int>& nums, int k) {
         map<int,int> mp;
         int n=nums.size();
-        mp[0]=1;
-        int count=0,pr=0;
+        mp[0] = 1;
+        int sum=0;
+        int count=0;
         for(int i=0;i<n;i++){
-            pr+=nums[i];
-            int remove=pr-k;
-            count+=mp[remove];
-            mp[pr]+=1;
+            sum+=nums[i];
+         
+            if(mp.find(sum-k)!=mp.end())count+=mp[sum-k];
+
+               mp[sum]++;
         }
-            return count;
+        return count;
     }
+
 };
