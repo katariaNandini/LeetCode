@@ -1,17 +1,35 @@
+typedef long long ll;
+
 class Solution {
   public:
-    vector<int> findTwoElement(vector<int>& arr) {
-        // code here
-        sort(arr.begin(),arr.end());
-        int n=arr.size();
-        int repeat=-1;
-        int miss=-1;
-      for(int i=0;i<n-1;i++){
-          if(arr[i]==arr[i+1])repeat=arr[i];
-          else if(arr[i+1]!=arr[i]+1) miss=arr[i]+1;
-      }
-      if(arr[0]!=1) miss=1;
-      if(arr[n-1]!=n)miss=n;
-        return {repeat,miss};
+    vector<int> findTwoElement(vector<int>& a) {
+        long long n = a.size(); // size of the array
+
+    // Find Sn and S2n:
+    long long SN = (n * (n + 1)) / 2;
+    long long S2N = (n * (n + 1) * (2 * n + 1)) / 6;
+
+    // Calculate S and S2:
+    long long S = 0, S2 = 0;
+    for (int i = 0; i < n; i++) {
+        S += a[i];
+        S2 += (long long)a[i] * (long long)a[i];
+    }
+
+    //S-Sn = X-Y:
+    long long val1 = S - SN;
+
+    // S2-S2n = X^2-Y^2:
+    long long val2 = S2 - S2N;
+
+    //Find X+Y = (X^2-Y^2)/(X-Y):
+    val2 = val2 / val1;
+
+    //Find X and Y: X = ((X+Y)+(X-Y))/2 and Y = X-(X-Y),
+    // Here, X-Y = val1 and X+Y = val2:
+    long long x = (val1 + val2) / 2;
+    long long y = x - val1;
+
+    return {(int)x, (int)y};
     }
 };
