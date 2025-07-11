@@ -11,25 +11,21 @@
  */
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        //int n=inorder.size();
-        map<int,int> inmap;
-        for(int i=0;i<inorder.size();i++){
-inmap[inorder[i]]=i;
-        }
-        TreeNode* root=buildTree(preorder,0,preorder.size()-1,
-        inorder,0,inorder.size()-1,inmap);
-        return root;
-    }
-    TreeNode * buildTree(vector<int>& preorder,int prestart,
-    int preend, vector<int>& inorder,int instart,int inend,map<int ,int >&inmap){
-        if(prestart>preend||instart>inend) return NULL;
+    TreeNode * funct(vector<int>inorder,int instart,int inend,vector<int>preorder,int prestart,int prend,map<int,int>&inmap){
+        if(prestart>prend||instart>inend)return NULL;
         TreeNode* root=new TreeNode(preorder[prestart]);
         int inroot=inmap[root->val];
         int numleft=inroot-instart;
-        root->left=buildTree(preorder,prestart+1,prestart+numleft,inorder,instart,
-        inroot-1,inmap);
-        root->right=buildTree(preorder,prestart+numleft+1,preend,inorder,inroot+1,inend,inmap);
+        root->left=funct(inorder,instart,inroot-1,preorder,prestart+1,prestart+numleft,inmap);
+        root->right=funct(inorder,inroot+1,inend,preorder,prestart+numleft+1,prend,inmap);
         return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+     map<int,int> inmap;
+     for(int i=0;i<inorder.size();i++){
+        inmap[inorder[i]]=i;
+     }   
+     TreeNode * root=funct(inorder,0,inorder.size()-1,preorder,0,preorder.size()-1,inmap);
+     return root;
     }
 };
