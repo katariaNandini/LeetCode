@@ -1,21 +1,16 @@
 class Solution {
   public:
-  bool detect(int src,vector<vector<int>>& adjlist,vector<int>&vis){
-       queue<pair<int,int>> q;
-       q.push({src,-1});
+  bool dfs(int src,int parent,vector<vector<int>>& adjlist,vector<int>&vis){
+  
        vis[src]=1;
-       while(!q.empty()){
-           int node=q.front().first;
-           int parent=q.front().second;
-           q.pop();
-           for(auto it:adjlist[node]){
-               if(vis[it]!=1){q.push({it,node});
-                   vis[it] = 1; 
-               }
-               else if(it!=parent)return true;
-        
+       for(auto it:adjlist[src]){
+           if(vis[it]==0){
+               if(dfs(it,src,adjlist,vis))return true;
            }
+           else if(it!=parent)return true;
        }
+       
+        
       
       return false;
   }
@@ -31,7 +26,7 @@ class Solution {
         vector<int> vis(V, 0);
         for(int i=0;i<V;i++){
             if(vis[i]==0)
-            if(detect(i,adjlist,vis)==true)return true;
+            if(dfs(i,-1,adjlist,vis)==true)return true;
         }
         return false;
     }
