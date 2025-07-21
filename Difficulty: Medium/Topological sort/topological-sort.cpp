@@ -14,14 +14,14 @@ class Solution {
                 indegree[it]++;
             }
         }
-        stack<int>st;
+        queue<int>st;
         for(int i=0;i<V;i++){
             if(indegree[i]==0)st.push(i);
             
         }
         vector<int> ans;
         while(!st.empty()){
-            int node=st.top();
+            int node=st.front();
             st.pop();
             ans.push_back(node);
             for(auto it:adj[node]){
