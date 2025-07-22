@@ -1,7 +1,7 @@
 class Solution {
 public:
     int maximumUniqueSubarray(vector<int>& nums) {
-        map<int,int>mp;
+        unordered_map<int,int>mp;
         int n=nums.size();
         int l=0;
         int r=1;
