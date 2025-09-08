@@ -16,31 +16,37 @@ class Solution {
   public:
     vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target) {
         // code here
-          vector<pair<int, int>> ans;
-        //   Node* temp=head;
-        Node * temp1=head;
-        Node * temp2=head;
-      while (temp2->next != NULL) {
-    temp2 = temp2->next;
-}
-        
-        while(temp1!=NULL&&temp2!=NULL&&temp2->next!=temp1&&temp1!=temp2){
-    if(temp1->data+temp2->data==target){ans.push_back({temp1->data,temp2->data});
-        temp1=temp1->next;
-        temp2=temp2->prev;
-    }
-   else  if(temp1->data+temp2->data>target)temp2=temp2->prev;
-    else temp1=temp1->next;
-    
+        Node * last=NULL;
+        vector<pair<int,int>>ans;
+        if(head==NULL||head->next==NULL)return ans;
+        Node * temp=head;
+        int total=0;
+        while(temp!=NULL){
+            last=temp;
+            temp=temp->next;
+            total++;
         }
-        
-                
-        //                 while(temp2!=NULL&&temp1->data+temp2->data<=target){
-        //         temp2=temp2->next;
-        //     }
-        //     temp1=temp1->next;
-            
-        // }
+        // ans.push_back({last->data,0});
+        // return ans;
+        temp=head;
+        int tempCount=0;
+        int lastCount=0;
+        while(temp!=last&&last!=NULL&&temp!=NULL){
+            if(lastCount+tempCount>=total)break;
+            if(temp->data+last->data>target){last=last->prev;
+                lastCount++;
+            }
+            else if(temp->data+last->data<target){temp=temp->next;
+                tempCount++;
+            }
+            else {
+                ans.push_back({temp->data,last->data});
+                last=last->prev;
+                temp=temp->next;
+                lastCount++;
+                tempCount++;
+            }
+        }
         return ans;
     }
 };
