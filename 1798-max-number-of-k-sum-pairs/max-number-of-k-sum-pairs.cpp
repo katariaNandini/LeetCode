@@ -1,20 +1,20 @@
 class Solution {
 public:
     int maxOperations(vector<int>& nums, int k) {
-        multiset<int>st;
+        sort(nums.begin(),nums.end());
+        int i=0;
         int n=nums.size();
+        int j=n-1;
         int op=0;
-        for(int i=0;i<n;i++){
-              int find=k-nums[i];
-            auto it=st.find(find);
-          
-            if(it!=st.end()){
-                st.erase(it);
+        while(i<j){
+            if(nums[i]+nums[j]>k)j--;
+            else if(nums[i]+nums[j]<k)i++;
+            else {
                 op++;
+                j--;
+                i++;
             }
-            else st.insert(nums[i]);
         }
-    return op;
-
+        return op;
     }
 };
