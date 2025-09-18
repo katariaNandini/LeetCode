@@ -1,23 +1,19 @@
 class Solution {
 public:
-bool ispali(int i,int j,string s,vector<vector<int>> &dp){
-    if(i>j)return true;
-    if(dp[i][j]!=-1)return dp[i][j];
-    if(s[i]==s[j]) {
-        return dp[i][j]=ispali(i+1,j-1,s,dp);}
-    return dp[i][j]= false;
-}
     int countSubstrings(string s) {
-       
-     int n=s.size();
-      vector<vector<int>>dp(n,vector<int>(n,-1));
-     int count=0;
-     for(int i=0;i<n;i++){
-        for(int j=i;j<n;j++){
-            if(ispali(i,j,s,dp))count++;
+        int n=s.size();
+        int count=0;
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        for(int l=1;l<=n;l++){
+            for(int i=0;i+l-1<n;i++){
+                int j=i+l-1;
+                if(i==j)dp[i][j]=true;
+                else if(i+1==j)dp[i][j]=(s[i]==s[j]);
+                else dp[i][j]=(s[i]==s[j]&&dp[i+1][j-1]);
+                if(dp[i][j])count++;
+            }
+
+        }    
+        return count;
         }
-     }
-      
-     return count; 
-    }
 };
