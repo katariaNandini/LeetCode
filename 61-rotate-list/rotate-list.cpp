@@ -11,52 +11,28 @@
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
-        int len=1;
-        ListNode* temp=head;
-        if(head==NULL||head->next==NULL||k==0) return head;
-        while(temp->next!=NULL){
+        int len=0;
+        if(head==NULL||head->next==NULL)return head;
+        ListNode * temp=head;
+        ListNode * fast=head;
+        while(temp!=NULL){
+            temp=temp->next;
             len++;
-            temp=temp->next;
         }
-        if(k%len==0) return head;
-        temp->next=head;
+        
         k=k%len;
-        // if(k==0) return head;
-        len=len-k;
-
-        while(len>0){
-            temp=temp->next;
-            len--;
+        if(k==0)return head;
+        int point=len-k-1;
+        for(int i=0;i<point;i++){
+            fast=fast->next;
         }
-        head=temp->next;
-        temp->next=NULL;
-        return head;
-        
+        ListNode * newhead=fast->next;
+        fast->next=NULL;
+        ListNode * newtemp=newhead;
+        while(newtemp->next!=NULL){
+        newtemp=newtemp->next;
     }
-
+    newtemp->next=head;
+    return newhead;
+    }
 };
-// temp=head;
-        
-//          len=(len-k);
-//          int len1=len;
-//         if(len<=0)return NULL;
-//         ListNode* dummy=new ListNode(-1);
-//         ListNode* head1=head;
-//         ListNode* prev=NULL;
-//         while(temp->next!=NULL){
-//             len--;
-
-//             prev=temp;
-//             temp=temp->next;
-//             if(len==0)head=temp;
-            
-
-//         }
-//         temp->next=head1;
-        
-//         while(head1!=NULL&&k>0){
-//             head1=head1->next;
-//             k--;
-//         }
-//         head1->next=NULL;
-// return head;
