@@ -1,22 +1,21 @@
 class Solution {
 public:
     int numberOfSubstrings(string s) {
-        int n=s.size();
-        int i=0;
-        int j=0;
-        int count=0;
-        int a=-1,b=-1,c=-1;
-        while(i<n){
-            if(s[i]=='a') a=i;
-            else if(s[i]=='b') b=i;
-           else  if(s[i]=='c') c=i;
-           if(a!=-1&&b!=-1&&c!=-1){
-            int mini=min(a,min(b,c));
-            count+=mini+1;
-            
-           }
-           i++;
+    map<char,int>mp;
+    int i=0  ,  j=0,   n=s.size(),   count=0;
+    while(j<n){
+        mp[s[j]]++;
+        while(mp.size()==3){count+=n-j;
+        mp[s[i]]--;
+        if(mp[s[i]]==0)mp.erase(s[i]);
+        i++;
+        
         }
-        return count;
+       j++;
+        
+        
+    }
+    return count;
+        
     }
 };
