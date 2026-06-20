@@ -1,17 +1,12 @@
 class Solution {
 public:
+int fibonacci(int n,vector<int>& dp){
+    if(n<=1)return n;
+    if(dp[n]!=-1) return dp[n];
+    return dp[n]=fibonacci(n-1,dp)+fibonacci(n-2,dp);
+}
     int fib(int n) {
-        // Base Condition.
-   if(n <= 1)
-   {
-       return n;
-   }
-
-   // Problem broken down into 2 functional calls
-   // and their results combined and returned.
-   int last = fib(n-1);
-   int slast = fib(n-2);
-   
-   return last + slast;
+        vector<int>dp(n+1,-1);
+        return fibonacci(n,dp);
     }
 };
