@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int n=numbers.size();
+        int low=0;
+        int high=n-1;
+        // vector<int> ans;
+        while(low<high){
+            int sum=numbers[low]+numbers[high];
+            if(sum==target)return {low+1,high+1};
+            else if(sum>target)high--;
+            else low++;
+        }
+        return {-1,-1};
+    }
+};
