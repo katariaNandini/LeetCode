@@ -12,31 +12,23 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        if (!root) return {}; // Handling the case for empty tree
-        
-        vector<vector<int>> result;
-        queue<pair<int, TreeNode*>> nodes;
-        
-        nodes.push({0, root});
-        
-        while (!nodes.empty()) {
-            auto it = nodes.front();
-            nodes.pop();
-            
-            int level = it.first;
-            TreeNode* temp = it.second;
-            
-            // Ensure the result vector has enough space for the current level
-            if (result.size() <= level) {
-                result.push_back({});
+        vector<vector<int>> ans;
+        queue<TreeNode*> q;
+        if(root==NULL) return ans;
+        q.push(root);
+        while(!q.empty()){
+            int size=q.size();
+            vector<int> temp;
+            for(int i=0;i<size;i++){
+                TreeNode * node=q.front();
+                temp.push_back(node->val);
+                q.pop();
+                if(node->left!=NULL) q.push(node->left);
+                if(node->right!=NULL) q.push(node->right);
+
             }
-            
-            result[level].push_back(temp->val);
-            
-            if (temp->left) nodes.push({level + 1, temp->left});
-            if (temp->right) nodes.push({level + 1, temp->right});
+            ans.push_back(temp);
         }
-        
-        return result;
+        return ans;
     }
 };
