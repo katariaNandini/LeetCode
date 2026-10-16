@@ -1,33 +1,58 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-vector<int> mp(256, 0);
-        int n=s.size();
-        int m=t.size();
-        int i=0,j=0,count=0,minlen=INT_MAX,iindex=-1;
-        for(int i=0;i<m;i++){
-            mp[t[i]]++;
+        unordered_map<char, int> mp;
+        for (auto it : t) {
+            mp[it]++;
         }
-        while(j<n){
-            	if(mp[s[j]]>0) {
-                count++;}mp[s[j]]--;
-               
-                    while(count==m){
-                        if(minlen>j-i+1){
-                            minlen=min(j-i+1,minlen);
-                            iindex=i;
-                        }
-                        mp[s[i]]++;
-                        if(mp[s[i]]>=1) {count--;}
-                        i++;
-                        
+        int l = 0;
+        int r = 0;
+        int var = t.size();
 
-                        
-                    }
+        int ans = INT_MAX;
+        int mini = INT_MAX;
+        int ansl=0;
+        int ansr=0;
+        while (r < s.size()) {
+            char c = s[r];
+            if (mp.find(c) != mp.end()) {
+                if (mp[c] > 0)
+
+                {
                    
-                
-                 j++;
+                    var--;
+                }
+                 mp[c]--;
+            }
+            while (var == 0) {
+                mini = r - l + 1;
+                if(ans>mini){
+                    ansl=l;
+                    ansr=r;
+                    ans=mini;
+                }
+                // while (mp.find(s[l]) == mp.end())
+                //     l++;
+                if (mp.find(s[l]) != mp.end()) {
+                    mp[s[l]]++;
+                   if (mp[s[l]] > 0) {
+                var++;
+            }
+                }
+                l++;
+            }
+            r++;
         }
-       return iindex == -1 ? "" : s.substr(iindex, minlen);
+
+        if (ans == INT_MAX) {
+            return "";
+        }
+        int len=ansr-ansl+1;
+        return s.substr(ansl, len);
+        // map of occcurence and that char
+        // variable of count
+        // if that exist in map and count is not 0
+        // count -- and map
+        //    if var =0   then move l   map mai aya toh
     }
 };
