@@ -1,38 +1,33 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        int start=0;
+        sort(nums.begin(), nums.end());
         int n=nums.size();
         vector<vector<int>> ans;
-
-        for(int i=0; i<=n-2;i++){
-            if(i>0&& nums[i]==nums[i-1]) continue;
-            // k=i+1;
-            // for(int j=k;j<=end-1;j++){
-            int left=i+1;
-            int right=n-1;
-            while(left<right){
-                if((nums[left]+nums[right]+nums[i])==0){
-                    vector<int> temp;
-                    temp.push_back(nums[left]);
+        set<vector<int>> st;
+        for(int i=0;i<n;i++){
+            vector<int> temp;
+            int j=i+1;
+            int k=n-1;
+            while(j<k){
+                int target=nums[i]+nums[j]+nums[k];
+                // cout<<nums[i]<<"     "<<nums[j]<<"    "<<nums[k]<<endl;
+                if(target==0){
                     temp.push_back(nums[i]);
-                    temp.push_back(nums[right]);          
-          ans.push_back(temp);
-          left++;
-          right--;
-          while(left<right && nums[left]==nums[left-1])left++;
-          while(left<right && nums[right]==nums[right+1])right--;
-
-
+                    temp.push_back(nums[j]);
+                    temp.push_back(nums[k]);
+                    st.insert(temp);
+                    j++;
+                    k--;
                 }
-                else if((nums[left]+nums[right]+nums[i])<0) left++;
-                else right--;
-
-
+                else if(target>0) k--;
+                else j++;
+                temp.clear();
             }
-          
-        }
-          return ans;
+        }     
+        for(auto it:st){
+            ans.push_back(it);
+        }   
+        return ans;
     }
 };
