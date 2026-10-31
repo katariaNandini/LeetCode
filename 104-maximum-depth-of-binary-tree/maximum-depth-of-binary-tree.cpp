@@ -11,24 +11,11 @@
  */
 class Solution {
 public:
-int maxDepth(TreeNode* root){
-        // If the root is NULL
-        // (empty tree), depth is 0
-        if(root == NULL){
-            return 0;
-        }
+    int maxDepth(TreeNode* root) {
+        if(root==NULL) return 0;
+        int lh=1+maxDepth(root->left);
+        int rh=1+maxDepth(root->right);
+        return max(lh,rh);
         
-        // Recursive call to find the
-        // maximum depth of the left subtree
-        int lh = maxDepth(root->left);
-        
-        // Recursive call to find the
-        // maximum depth of the right subtree
-        int rh = maxDepth(root->right);
-        
-        // Return the maximum depth of the
-        // tree, adding 1 for the current node
-        return 1 + max(lh, rh);
     }
-   
 };
