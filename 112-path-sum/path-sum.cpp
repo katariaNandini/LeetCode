@@ -12,7 +12,6 @@
 class Solution {
 public:
 bool  btp(TreeNode* root,int s,int ans,bool &ansi){
-    cout<<ansi<<endl;
     if(root==NULL) return false;
      if(root->left==NULL&&root->right==NULL&&s==ans){        ansi=true;cout<<ansi<<endl;
       return true;
@@ -26,7 +25,6 @@ bool  btp(TreeNode* root,int s,int ans,bool &ansi){
              btp(root->left,s,ans,ansi);
 
         }
-        cout<<s<<endl;
         if(l){
                       s-=root->left->val;
 
