@@ -11,42 +11,15 @@
  */
 class Solution {
 public:
+void inorder(TreeNode * root,vector<int>& traverse){
+    if(root==NULL) return ;
+    inorder(root->left,traverse);
+    traverse.push_back(root->val);
+    inorder(root->right,traverse);
+}
     int kthSmallest(TreeNode* root, int k) {
-        int count=0;
-        int res=-1;
-        int ans=-1;
-        // if(root==NULL)return root->val;
-        TreeNode * cur=root;
-        while(cur!=NULL){
-            if(cur->left==NULL){
-                count++;
-                if(count==k){ans=  cur->val;
-                // break;
-                }
-
-                cur=cur->right;
-            }
-
-            else{
-                TreeNode* prev=cur->left;
-                while(prev->right!=NULL&&prev->right!=cur){
-                    prev=prev->right;
-                }
-                if(prev->right==NULL){prev->right=cur;
-                cur=cur->left;}
-                else{
-                    prev->right=NULL;
-                    count++;
-                if(count==k){ans=  cur->val;
-                // break;
-                }
-
-                    cur=cur->right;
-                }
-            }
-            // if(res!=-1)break;
-            // if(count==k)return cur->val;
-        }
-        return ans;
+        vector<int> ans;
+        inorder(root,ans);
+        return ans[k-1];
     }
 };
